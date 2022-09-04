@@ -70,6 +70,16 @@ ORAM完美的解决了access pattern的问题。
 
 
 
+## Boolean query
+
+在SSE的场景下，布尔查询又可以理解为多关键字查询，其中包含联合查询(conjunctive query)和非联合查询(disjunctive query)，下面按照时间脉络和重要程度，列出一些具有里程碑意义的论文。
+
+- OXT(2013) ，适合做conjunctive query
+- BIEX(2017)，适合做disjunctive query
+- CNFFilter(2021)，结合以上两篇进行改进
+
+现有的Boolean Query方案大多都是改进于OXT框架，如：HXT解决了OXT关键字对泄露的问题；PHXT在没有牺牲存储的情况下解决了OXT关键字对泄露的问题；SDSSE-OXT进一步增加token开销的前提下将OXT做成了动态方案；包括CNFFIlter都离不开OXT框架，大家了解Boolean Query可以以OXT为出发点，阅读该方案的扩展论文，当然也有很多没有使用OXT的论文，如VBTree，扩展位图索引等，这一方向也不失为一种思路，更多论文欢迎大家补充。
+
 
 
 # 提交流程
