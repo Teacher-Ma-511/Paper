@@ -1,0 +1,4 @@
+该zip文件内有两种方案代码实现
+1.我的ECDSSE方案实现(sample文件夹)
+2.ODXT方案实现(NDSS2021，odxt1文件夹)
+利用ECSSE.Util.h和ECSSE.Util.cc文件的工具函数，基本可以解决实现其他方案的问题。

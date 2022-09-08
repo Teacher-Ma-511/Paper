@@ -1,0 +1,23 @@
+ size_t c;
+get_stuc(keyword,c);
+c++;
+set_stuc(keyword,c);
+keyword = Util::H1(keyword).substr(0, 8);
+K_w = gen_enc_token(keyword);
+// Util::encrypt(K_w,keyword+std::to_string(c)+"0",addr);  //addr = F(K_w , w+counter+0)
+//Util::encrypt(K_w,keyword+std::to_string(c)+"1",valxor);    // valxor = F(K_w,w+counter+1)
+addr = Util::H2(K_w+keyword+std::to_string(c)+"0").substr(0,16);
+valxor = Util::H1(K_w+keyword+std::to_string(c)+"1");
+
+val=Util::Xor(id+op,valxor);   //val = Xor(id+op,valxor)
+Util::encrypt(K_I,id+op,xind);   //xind= F(k_i,id || op) 9 byte
+Util::encrypt(K_Z,keyword+std::to_string(c),z);   //Fp(Kz,w||c)
+Integer zn = Util::str2num(z).InverseMod(q);
+Integer ynum = Util::str2num(xind); 
+Integer yzn = a_times_b_mod_c(zn,ynum,q);
+alpha = Util::num2str(yzn);
+Util::encrypt(K_X,keyword,wx);  // wx = Fp(Kx,w)
+Integer wxn = Util::str2num(wx);
+xtag = Util::num2str( a_exp_b_mod_c(g%p,a_times_b_mod_c(wxn,ynum,q),p));
+l=addr;
+E=val;

@@ -1,0 +1,76 @@
+/*
+ * Created by helen chan  on 19/02/2022
+ * Email: kaibaking@gmail.com
+ * 
+ */
+syntax = "proto3";
+
+//import "google/protobuf/empty.proto";
+
+package ECSSE;
+
+service RPC {
+
+// Setup
+rpc setup (SetupRequestMessage) returns ( ExecuteStatus ) {}
+
+// Search
+rpc search (SearchRequestMessage) returns (SearchReply) {}
+
+// Update
+rpc update (UpdateRequestMessage) returns ( ExecuteStatus ) {}
+rpc batch_update (stream UpdateRequestMessage) returns ( ExecuteStatus ) {}
+
+//communication 
+rpc save_BF(stream UpdateBF) returns (ExecuteStatus){}
+
+// only used for expriment simulation
+rpc cache (CacheRequestMessage) returns ( ExecuteStatus ) {}
+rpc batch_cache (stream CacheRequestMessage) returns ( ExecuteStatus ) {}
+
+}
+
+message SetupRequestMessage
+{
+    uint64 setup_size = 1;
+}
+
+message SearchRequestMessage
+{
+    bytes st = 1;
+    bytes xtoken=2;
+	uint64 uc = 3; 
+    uint64 xnum =4;
+}
+
+
+message SearchReply
+{
+	bytes ind = 1;
+    bytes j=2;
+    bytes cnt=3;
+}
+
+message CacheRequestMessage
+{
+    bytes inds = 1;
+}
+
+message UpdateRequestMessage
+{
+    bytes l = 1;
+    bytes e = 2;
+
+    //conjuctive search
+    bytes xtag=3;
+    bytes alpha=4;
+}
+
+message UpdateBF{
+    bytes yes =1;
+}
+
+message ExecuteStatus
+{
+	bool status = 1; 
+}
